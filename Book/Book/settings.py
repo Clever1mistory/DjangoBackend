@@ -35,8 +35,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app',
 
+    'social_django',
+    'app',
 
 ]
 
@@ -55,7 +56,7 @@ ROOT_URLCONF = 'Book.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -83,6 +84,16 @@ DATABASES = {
         'PORT': '',
     }
 }
+
+AUTHENTICATION_BACKENDS = (
+
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.yandex.YandexOAuth2',
+   
+
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -131,3 +142,12 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.JSONParser',
     )
 }
+
+SOCIAL_AUTH_JSONFIELD_ENABLED = True
+
+SOCIAL_AUTH_GITHUB_KEY = '24a791e27bb90f2f2aaa'
+SOCIAL_AUTH_GITHUB_SECRET = '8e1af012466cb0d05d3cf2193cac91271d37022c'
+
+
+YANDEX_OAUTH2_CLIENT_KEY = '6d07bff59d344804879b019e5af9239b'
+YANDEX_OAUTH2_CLIENT_SECRET = '9bc84f901d4a492d8c018ce0372a27a2'
