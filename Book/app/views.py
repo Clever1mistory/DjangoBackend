@@ -4,13 +4,15 @@ from django.shortcuts import render
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.mixins import UpdateModelMixin
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.schemas import openapi
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
 from app.models import Book, UserBookRelation
 from app.permissions import IsOwnerOrStuffOrReadOnly
 from app.serializers import BookSerializer, UserBookRelationSerializer
 from django_filters.rest_framework import DjangoFilterBackend
-
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
 class BookViewSet(ModelViewSet):
     queryset = Book.objects.all().annotate(
@@ -23,6 +25,17 @@ class BookViewSet(ModelViewSet):
     search_fields = ['name', 'author_name']
     ordering_fields = ['price', 'author_name']
 
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter(
+                "search",
+                openapi.IN_QUERY,
+                description="Search users by name",
+                type=openapi.TYPE_STRING
+        ),
+    ],
+    operation_id = "list_users"
+    )
     def perform_create(self, serializer):
         serializer.validated_data['owner'] = self.request.user
         serializer.save()

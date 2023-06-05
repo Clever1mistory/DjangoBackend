@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'debug_toolbar',
     'social_django',
+    'drf_yasg',
 
 
     'app',

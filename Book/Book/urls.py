@@ -20,6 +20,7 @@ from django.urls import path, include, re_path
 from rest_framework.routers import SimpleRouter
 
 from app.views import BookViewSet, UserBooksRelationView, auth
+from swagger import urlpatterns as swagger_urls
 
 router = SimpleRouter()
 
@@ -33,6 +34,6 @@ urlpatterns = [
     # path('auth/', auth),
     # path('__debug__/', include('debug_toolbar.urls')),
 
-]
+]+ swagger_urls
 
 urlpatterns += router.urls
